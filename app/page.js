@@ -68,7 +68,7 @@ export default function Home() {
       </header>
 
       <main>
-        <section className="section-wrap grid min-h-[88vh] items-center gap-10 pb-20 pt-8 md:grid-cols-[1.05fr_1fr]">
+        <section className="section-wrap grid min-h-[88vh] items-center gap-10 pb-8 pt-8 md:grid-cols-[0.95fr_1.05fr]">
           <div>
             <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Infrastructure Platform</p>
             <h1 className="rise rise-delay mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl md:text-7xl">
@@ -107,12 +107,12 @@ export default function Home() {
               interaction-prompt="none"
               shadow-intensity="1"
               exposure="1"
-              class="h-full min-h-[360px] w-full"
+              class="h-full min-h-[460px] w-full md:min-h-[620px]"
             ></model-viewer>
           </div>
         </section>
 
-        <section id="infrastructure" className="section-wrap py-20">
+        <section id="infrastructure" className="section-wrap pb-20 pt-10">
           <h2 className="section-title">Surfboard Access Infrastructure</h2>
           <p className="section-copy mt-5">
             SurfPods combines hardware, embedded electronics and mobile software into one deployed access network.
