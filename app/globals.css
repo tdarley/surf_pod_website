@@ -77,6 +77,42 @@ html {
   animation-delay: 260ms;
 }
 
+.motion-ready .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 780ms ease, transform 780ms ease;
+}
+
+.motion-ready .reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-ready .reveal-on-scroll .reveal-stagger {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 640ms ease, transform 640ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.motion-ready .reveal-on-scroll.in-view .reveal-stagger {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready .reveal-on-scroll,
+  .motion-ready .reveal-on-scroll .reveal-stagger,
+  .rise,
+  .rise-delay,
+  .rise-delay-2 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @keyframes rise-in {
   to {
     opacity: 1;

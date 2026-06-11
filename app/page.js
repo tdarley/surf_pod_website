@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Script from "next/script";
+import { useEffect } from "react";
 
 const infrastructureCards = [
   {
@@ -11,19 +14,26 @@ const infrastructureCards = [
     copy: "Session access and operator controls through a dedicated mobile interface.",
   },
   {
-    title: "Deployment Network",
-    copy: "Distributed infrastructure installed across accommodation-based surf locations.",
+    title: "Deployment Locations",
+    copy: "SurfPods units are installed at campsites, holiday parks, and coastal accommodation sites.",
   },
 ];
 
 const hardwareFeatures = [
-  "Per-board intelligent control",
-  "Integrated retention system",
-  "Self-reporting hardware",
-  "Connected deployment platform",
-  "Coastal-grade engineering",
+  "Stainless steel construction",
+  "IP-rated electrical components",
+  "Modular serviceable design",
+  "Corrosion-resistant materials",
 ]
 
+const sessionControlFeatures = [
+  "Per-board time-based rental sessions",
+  "Algorithmic session gating using live wave buoy data",
+  "Remote session monitoring and override control",
+  "Automated session start and return tracking",
+  "Board availability monitoring",
+  "Operator lockout controls",
+];
 const deploymentLocations = [
   "Campsites",
   "Holiday Parks",
@@ -41,7 +51,50 @@ const galleryItems = [
   "App interaction render",
 ];
 
+const contactEmail = "surfpods.rentals@gmail.com";
+
 export default function Home() {
+  const handleInterestSubmit = (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = (formData.get("name") || "").toString().trim();
+    const email = (formData.get("email") || "").toString().trim();
+    const company = (formData.get("company") || "").toString().trim();
+
+    const subject = encodeURIComponent("SurfPods Register Interest");
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nI am interested in SurfPods deployment updates.`
+    );
+
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+  };
+
+  useEffect(() => {
+    document.body.classList.add("motion-ready");
+
+    const revealSections = document.querySelectorAll(".reveal-on-scroll");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealSections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+      document.body.classList.remove("motion-ready");
+    };
+  }, []);
+
   return (
     <div className="surf-shell min-h-screen text-white">
       <Script
@@ -70,15 +123,15 @@ export default function Home() {
       <main>
         <section className="section-wrap grid min-h-[88vh] items-center gap-10 pb-8 pt-8 md:grid-cols-[0.95fr_1.05fr]">
           <div>
-            <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Infrastructure Platform</p>
+            <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Automated Rental System</p>
             <h1 className="rise rise-delay mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl md:text-7xl">
               SURFPODS
             </h1>
             <p className="rise rise-delay-2 mt-7 max-w-xl text-lg text-slate-300">
-              Automated surfboard access infrastructure for coastal accommodation.
+              A self-service surfboard rental system with app-based access and automated board control.
             </p>
             <p className="mt-4 max-w-xl text-base text-slate-400">
-              Designed for campsites, holiday parks and coastal resorts.
+              Designed for campsites, holiday parks and coastal accommodation sites.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
@@ -112,14 +165,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="infrastructure" className="section-wrap pb-20 pt-10">
-          <h2 className="section-title">Surfboard Access Infrastructure</h2>
-          <p className="section-copy mt-5">
-            SurfPods combines hardware, embedded electronics and mobile software into one deployed access network.
+        <section id="infrastructure" className="section-wrap reveal-on-scroll pb-20 pt-10">
+          <h2 className="section-title reveal-stagger">Surfboard Rental System</h2>
+          <p className="section-copy reveal-stagger mt-5" style={{ "--reveal-delay": "90ms" }}>
+            SurfPods combines purpose built hardware, embedded electronics and mobile software into one deployed access system.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {infrastructureCards.map((card) => (
-              <article key={card.title} className="panel rounded-2xl p-6">
+            {infrastructureCards.map((card, index) => (
+              <article
+                key={card.title}
+                className="panel reveal-stagger rounded-2xl p-6"
+                style={{ "--reveal-delay": `${160 + index * 80}ms` }}
+              >
                 <h3 className="text-xl font-medium">{card.title}</h3>
                 <p className="mt-3 text-sm text-slate-300">{card.copy}</p>
               </article>
@@ -127,51 +184,37 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-wrap grid gap-10 py-20 md:grid-cols-[1fr_1.05fr] md:items-center">
-          <div>
-            <h2 className="section-title">Engineered for Coastal Environments</h2>
+        <section className="section-wrap reveal-on-scroll grid gap-10 py-20 md:grid-cols-2 md:items-center">
+          <div className="order-2 reveal-stagger md:order-1">
+            <h2 className="section-title">Complete Session Control</h2>
             <p className="section-copy mt-5">
-              Built for outdoor deployment with secure access, modular construction and long-term reliability.
+              Users access equipment through the mobile app while operators monitor deployment status in real time.
             </p>
             <ul className="mt-6 grid grid-cols-1 gap-3 text-sm text-slate-300 sm:grid-cols-2">
-              {hardwareFeatures.map((feature) => (
-                <li key={feature} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              {sessionControlFeatures.map((feature, index) => (
+                <li
+                  key={feature}
+                  className="reveal-stagger rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+                  style={{ "--reveal-delay": `${120 + index * 70}ms` }}
+                >
                   {feature}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-white/15 bg-black/50 p-2">
-            <Image
-              src="/Homepage-Background.jpg"
-              alt="SurfPods hardware render"
-              width={1200}
-              height={800}
-              className="h-full w-full rounded-2xl object-cover"
-            />
-          </div>
-        </section>
-
-        <section className="section-wrap grid gap-10 py-20 md:grid-cols-2 md:items-center">
-          <div className="order-2 md:order-1">
-            <h2 className="section-title">Complete Session Control</h2>
-            <p className="section-copy mt-5">
-              Users access equipment through the mobile app while operators monitor deployment status in real time.
-            </p>
-          </div>
           <div className="order-1 grid gap-4 sm:grid-cols-2 md:order-2">
-            <div className="panel rounded-3xl p-3">
+            <div className="panel reveal-stagger rounded-3xl p-3" style={{ "--reveal-delay": "120ms" }}>
               <Image
-                src="/Homepage-Background.jpg"
+                src="/app_homepage.jpg"
                 alt="Mobile app screen one"
                 width={700}
                 height={1300}
                 className="aspect-[9/19] w-full rounded-2xl object-cover"
               />
             </div>
-            <div className="panel rounded-3xl p-3">
+            <div className="panel reveal-stagger rounded-3xl p-3" style={{ "--reveal-delay": "210ms" }}>
               <Image
-                src="/Homepage-Background.jpg"
+                src="/app_session_screen.jpeg"
                 alt="Mobile app screen two"
                 width={700}
                 height={1300}
@@ -181,15 +224,48 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-wrap py-20">
-          <h2 className="section-title">Built for Distributed Deployment</h2>
-          <p className="section-copy mt-5">
+        <section className="section-wrap reveal-on-scroll grid gap-10 py-20 md:grid-cols-[1fr_1.05fr] md:items-center">
+          <div className="reveal-stagger">
+            <h2 className="section-title">Engineered for Coastal Environments</h2>
+            <p className="section-copy mt-5" style={{ "--reveal-delay": "90ms" }}>
+              Built for outdoor deployment using corrosion-resistant materials, weather-protected components and serviceable modular construction.
+            </p>
+            <ul className="mt-6 grid grid-cols-1 gap-3 text-sm text-slate-300 sm:grid-cols-2">
+              {hardwareFeatures.map((feature, index) => (
+                <li
+                  key={feature}
+                  className="reveal-stagger rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+                  style={{ "--reveal-delay": `${150 + index * 60}ms` }}
+                >
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="reveal-stagger overflow-hidden rounded-3xl border border-white/15 bg-black/50 p-2" style={{ "--reveal-delay": "170ms" }}>
+            <Image
+              src="/storm_image.jpg"
+              alt="SurfPods hardware render"
+              width={1200}
+              height={800}
+              className="h-full w-full rounded-2xl object-cover"
+            />
+          </div>
+        </section>
+
+        <section className="section-wrap reveal-on-scroll py-20">
+          <h2 className="section-title reveal-stagger">Designed for Coastal Accommodation</h2>
+          <p className="section-copy reveal-stagger mt-5" style={{ "--reveal-delay": "90ms" }}>
             Designed for installation across multiple coastal accommodation environments with centralized control.
           </p>
-          <div className="mt-10 rounded-3xl border border-white/10 bg-black/45 p-7">
+          <div className="reveal-stagger mt-10 rounded-3xl border border-white/10 bg-black/45 p-7" style={{ "--reveal-delay": "160ms" }}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {deploymentLocations.map((location) => (
-                <div key={location} className="rounded-xl border border-cyan-300/25 bg-cyan-300/8 px-4 py-3 text-sm">
+              {deploymentLocations.map((location, index) => (
+                <div
+                  key={location}
+                  className="reveal-stagger rounded-xl border border-cyan-300/25 bg-cyan-300/8 px-4 py-3 text-sm"
+                  style={{ "--reveal-delay": `${220 + index * 60}ms` }}
+                >
                   {location}
                 </div>
               ))}
@@ -197,16 +273,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-wrap py-20">
-          <h2 className="section-title">System Overview</h2>
-          <p className="section-copy mt-5">
+        <section className="section-wrap reveal-on-scroll py-20">
+          <h2 className="section-title reveal-stagger">System Overview</h2>
+          <p className="section-copy reveal-stagger mt-5" style={{ "--reveal-delay": "90ms" }}>
             A product gallery presenting unit form, mechanism detail and operator interaction context.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {galleryItems.map((item, index) => (
               <figure
                 key={item}
-                className={`overflow-hidden rounded-3xl border border-white/10 bg-black/45 p-4 ${index === 0 || index === 3 ? "md:col-span-2" : ""}`}
+                className={`reveal-stagger overflow-hidden rounded-3xl border border-white/10 bg-black/45 p-4 ${index === 0 || index === 3 ? "md:col-span-2" : ""}`}
+                style={{ "--reveal-delay": `${160 + index * 80}ms` }}
               >
                 <Image
                   src="/Homepage-Background.jpg"
@@ -221,10 +298,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-wrap py-24">
-          <div className="rounded-3xl border border-cyan-300/20 bg-cyan-300/8 px-6 py-14 text-center sm:px-10">
+        <section className="section-wrap reveal-on-scroll py-24">
+          <div className="reveal-stagger rounded-3xl border border-cyan-300/20 bg-cyan-300/8 px-6 py-14 text-center sm:px-10">
             <h2 className="text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">
-              Building the Future of Surfboard Access
+              Building the Future of Surfboard Rental
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-slate-300">
               Join the early access programme and follow deployment progress.
@@ -238,13 +315,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="register" className="section-wrap pb-24">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-white/12 bg-black/55 p-8 sm:p-10">
+        <section id="register" className="section-wrap reveal-on-scroll pb-24">
+          <div className="reveal-stagger mx-auto max-w-2xl rounded-3xl border border-white/12 bg-black/55 p-8 sm:p-10">
             <h2 className="text-3xl font-semibold tracking-[-0.03em]">Register Interest</h2>
             <p className="mt-4 text-slate-300">
               Share your details to receive deployment updates and early access information.
             </p>
-            <form className="mt-8 grid gap-4" action="#" method="post">
+            <form className="mt-8 grid gap-4" onSubmit={handleInterestSubmit}>
               <label className="grid gap-2 text-sm" htmlFor="name">
                 Name
                 <input
@@ -285,6 +362,12 @@ export default function Home() {
                 Submit Interest
               </button>
             </form>
+            <p className="mt-5 text-sm text-slate-400">
+              Prefer email?{" "}
+              <a href={`mailto:${contactEmail}`} className="text-cyan-300 hover:text-cyan-200">
+                {contactEmail}
+              </a>
+            </p>
           </div>
         </section>
       </main>
