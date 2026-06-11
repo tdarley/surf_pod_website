@@ -102,20 +102,22 @@ export default function Home() {
         src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
         strategy="afterInteractive"
       />
-      <header className="section-wrap sticky top-0 z-20 py-6 backdrop-blur-md">
-        <div className="flex items-center justify-between rounded-full border border-white/10 bg-black/35 px-5 py-3">
+      <header className="sticky top-0 z-20 border-b border-white/8 bg-black/40 backdrop-blur-xl">
+        <div className="section-wrap flex items-center justify-between py-4">
           <Image
             src="/SurfPod-Logo-Green.png"
             alt="SurfPods logo"
-            width={132}
-            height={28}
+            width={140}
+            height={30}
             priority
+            className="transition-opacity hover:opacity-80"
           />
           <a
             href="#register"
-            className="rounded-full border border-cyan-300/40 px-4 py-2 text-sm text-cyan-300 transition hover:border-cyan-200 hover:text-cyan-200"
+            className="group relative inline-flex items-center rounded-lg border border-white/12 bg-gradient-to-b from-white/8 to-white/4 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-white/20 hover:from-white/12 hover:to-white/8 active:from-white/10 active:to-white/6"
           >
-            Register Interest
+            <span className="relative z-10">Register Interest</span>
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/0 to-cyan-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
           </a>
         </div>
       </header>
