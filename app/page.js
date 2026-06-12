@@ -123,8 +123,9 @@ export default function Home() {
       </header>
 
       <main>
-        <section className="section-wrap grid min-h-[88vh] items-center gap-10 pb-8 pt-8 md:grid-cols-[0.95fr_1.05fr]">
-          <div>
+        <section className="hero-section">
+          <div className="section-wrap grid min-h-[88vh] items-center gap-10 pb-8 pt-8 md:grid-cols-[0.95fr_1.05fr]">
+            <div>
             <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Automated Rental System</p>
             <h1 className="rise rise-delay mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl md:text-7xl">
               SURFPODS
@@ -149,21 +150,22 @@ export default function Home() {
                 Register Interest
               </a>
             </div>
-          </div>
+            </div>
 
-          <div className="hero-glow overflow-hidden rounded-3xl border border-white/15 bg-black/70">
-            <model-viewer
-              src="/rack.glb"
-              poster="/Homepage-Background.jpg"
-              alt="SurfPods rack 3D model"
-              camera-controls
-              auto-rotate
-              rotation-per-second="8deg"
-              interaction-prompt="none"
-              shadow-intensity="1"
-              exposure="1"
-              class="h-full min-h-[460px] w-full md:min-h-[620px]"
-            ></model-viewer>
+            <div className="hero-glow overflow-hidden rounded-3xl border border-white/15 bg-black/70">
+              <model-viewer
+                src="/rack.glb"
+                poster="/Homepage-Background.jpg"
+                alt="SurfPods rack 3D model"
+                camera-controls
+                auto-rotate
+                rotation-per-second="8deg"
+                interaction-prompt="none"
+                shadow-intensity="2"
+                exposure="1"
+                class="h-full min-h-[460px] w-full md:min-h-[620px]"
+              ></model-viewer>
+            </div>
           </div>
         </section>
 
