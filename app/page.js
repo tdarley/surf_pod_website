@@ -19,22 +19,6 @@ const infrastructureCards = [
   },
 ];
 
-const hardwareFeatures = [
-  "Stainless steel construction",
-  "IP-rated electrical components",
-  "Modular serviceable design",
-  "Corrosion-resistant materials",
-]
-
-const sessionControlFeatures = [
-  "Per-board time-based rental sessions",
-  "Algorithmic session gating using live wave buoy data",
-  "Remote session monitoring and override control",
-  "Automated session start and return tracking",
-  "Board availability monitoring",
-  "Operator lockout controls",
-];
-
 const problemSolutionPoints = [
   "Guests rent boards through the app",
   "Boards unlock automatically",
@@ -46,35 +30,56 @@ const problemSolutionPoints = [
 const surfpodsWorkflowSteps = [
   {
     step: "1",
-    title: "Select a Board",
-    detail: "Users view available surfboards and start a rental session through the mobile app.",
+    title: "Create an Account",
+    detail: "After users download the app, they can create an account to start renting surfboards. Before access is granted, SurfPods can verify rental conditions, including wave and safety criteria, using live buoy data.",
+    image: "/app_homepage.jpg",
+    imageAlt: "App screen showing surfboard selection",
   },
-  {
+
+   {
     step: "2",
-    title: "Session Validation",
-    detail:
-      "Before access is granted, SurfPods can automatically verify rental conditions, including wave and safety criteria using live buoy data.",
+    title: "Start a Session",
+    detail: "After connecting to the pod, users can start a rental session through the mobile app. They can select multiple boards, report damage, and agree to the terms and conditions.",
+    image: "/app_start_session.mp4",
+    imageAlt: "App screen showing surfboard selection",
   },
+
   {
     step: "3",
-    title: "Automated Access",
-    detail: "The selected board is released from the unit and the rental session begins automatically.",
+    title: "Pod Automatically Unlocks Boards",
+    detail:
+      "Once a session has started, the pod automatically unlocks the selected boards for the user. Boards reported as damaged are blocked automatically, and operators are notified for inspection.",
+    image: "/app_session_started.jpg",
+    imageAlt: "App screen showing session validation and rental checks",
   },
   {
     step: "4",
-    title: "Live Session Monitoring",
-    detail: "The system tracks active rentals, board availability and session status in real time.",
+    title: "Enjoy the Surf",
+    detail: "Users can now enjoy their surf session with the rented boards. The app keeps them informed of session time and cost. Safety information, including RNLI beach safety guides and emergency contact numbers, is available within the app.",
+    image: "/app_in_session.jpg",
+    imageAlt: "App screen showing automated session start",
   },
   {
     step: "5",
-    title: "Return and Close Session",
-    detail:
-      "When the board is returned, the session is automatically closed and equipment availability is updated.",
+    title: "Ending a Session",
+    detail: "Users return rented boards to the pod, which automatically detects returned boards. If damage is reported, the pod blocks the board and notifies operators for inspection. If boards are stolen, the app handles this and all necessary actions are taken.",
+    image: "/app_end_session.jpg",
+    imageAlt: "App screen showing live session monitoring",
   },
   {
     step: "6",
-    title: "Operator Oversight",
-    detail: "Operators can remotely monitor sessions, apply lockouts and intervene when required.",
+    title: "Session Review",
+    detail:
+      "Users can review their session details, including duration, cost, and any reported issues.",
+    image: "/app_session_screen.jpeg",
+    imageAlt: "App screen showing session close and return status",
+  },
+  {
+    step: "7",
+    title: "Operator Oversight and Support",
+    detail: "Operators can remotely monitor sessions, track damage, stolen boards, and faults. We handle damage claims, maintenance requests, and user support.",
+    image: "/app_support.jpg",
+    imageAlt: "App screen used by operators for oversight and controls",
   },
 ];
 
@@ -99,6 +104,8 @@ const contactEmail = "surfpods.rentals@gmail.com";
 
 export default function Home() {
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
+  const activeStep = surfpodsWorkflowSteps[activeWorkflowStep];
+  const activeStepIsVideo = activeStep.image.toLowerCase().endsWith(".mp4");
 
   const handleInterestSubmit = (event) => {
     event.preventDefault();
@@ -172,35 +179,35 @@ export default function Home() {
         <section className="hero-section">
           <div className="section-wrap grid min-h-[88vh] items-center gap-10 pb-8 pt-8 md:grid-cols-[0.95fr_1.05fr]">
             <div>
-            <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Automated Rental System</p>
-            <h1 className="rise rise-delay mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl md:text-7xl">
-              SURFPODS
-            </h1>
-            <p className="rise rise-delay-2 mt-7 max-w-xl text-lg text-slate-300">
-              A self-service surfboard rental system with app-based access and automated board control.
-            </p>
-            <p className="mt-4 max-w-xl text-base text-slate-400">
-              Designed for campsites, holiday parks and coastal accommodation sites.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a
-                href="#infrastructure"
-                className="rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition hover:bg-slate-200"
-              >
-                View System
-              </a>
-              <a
-                href="#register"
-                className="rounded-full border border-white/30 px-7 py-3 text-sm font-medium transition hover:border-cyan-200 hover:text-cyan-200"
-              >
-                Register Interest
-              </a>
-            </div>
+              <p className="rise text-xs uppercase tracking-[0.2em] text-cyan-300/90">Automated Rental System</p>
+              <h1 className="rise rise-delay mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl md:text-7xl">
+                SURFPODS
+              </h1>
+              <p className="rise rise-delay-2 mt-7 max-w-xl text-lg text-slate-300">
+                A self-service surfboard rental system with app-based access and automated board control.
+              </p>
+              <p className="mt-4 max-w-xl text-base text-slate-400">
+                Designed for campsites, holiday parks, and coastal accommodation sites.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <a
+                  href="#infrastructure"
+                  className="rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition hover:bg-slate-200"
+                >
+                  View System
+                </a>
+                <a
+                  href="#register"
+                  className="rounded-full border border-white/30 px-7 py-3 text-sm font-medium transition hover:border-cyan-200 hover:text-cyan-200"
+                >
+                  Register Interest
+                </a>
+              </div>
             </div>
 
             <div className="hero-glow overflow-hidden rounded-3xl border border-white/15 bg-black/70">
               <model-viewer
-                src="/rack.glb"
+                src="/untitled.glb"
                 poster="/Homepage-Background.jpg"
                 alt="SurfPods rack 3D model"
                 camera-controls
@@ -210,7 +217,7 @@ export default function Home() {
                 shadow-intensity="2"
                 exposure="1"
                 class="h-full min-h-[460px] w-full md:min-h-[620px]"
-              ></model-viewer>
+              />
             </div>
           </div>
         </section>
@@ -248,9 +255,9 @@ export default function Home() {
         </section>
 
         <section id="infrastructure" className="section-wrap reveal-on-scroll pb-20 pt-10">
-          <h2 className="section-title reveal-stagger">Surfboard Rental System</h2>
+          <h2 className="section-title reveal-stagger">SurfPods System</h2>
           <p className="section-copy reveal-stagger mt-5" style={{ "--reveal-delay": "90ms" }}>
-            SurfPods combines purpose built hardware, embedded electronics and mobile software into one deployed access system.
+            SurfPods combines purpose-built hardware, embedded electronics, and mobile software into one deployed access system.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {infrastructureCards.map((card, index) => (
@@ -307,101 +314,63 @@ export default function Home() {
               </div>
             </div>
 
-            <article className="panel reveal-stagger rounded-3xl p-7 md:p-9" style={{ "--reveal-delay": "240ms" }}>
-              <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/90">
-                Step {surfpodsWorkflowSteps[activeWorkflowStep].step}
-              </p>
-              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.02em] text-white">
-                {surfpodsWorkflowSteps[activeWorkflowStep].title}
-              </h3>
-              <p className="mt-5 max-w-[55ch] text-slate-300">{surfpodsWorkflowSteps[activeWorkflowStep].detail}</p>
+            <div className="grid gap-4 lg:grid-cols-[1fr_0.78fr]">
+              <article className="panel reveal-stagger rounded-3xl p-7 md:p-9" style={{ "--reveal-delay": "240ms" }}>
+                <p className="text-xs uppercase tracking-[0.2em] text-cyan-300/90">
+                  Step {activeStep.step}
+                </p>
+                <h3 className="mt-4 text-2xl font-semibold tracking-[-0.02em] text-white">
+                  {activeStep.title}
+                </h3>
+                <p className="mt-5 max-w-[55ch] text-slate-300">{activeStep.detail}</p>
 
-              <div className="mt-8 h-2 w-full overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan-300/90 to-cyan-500/90 transition-all duration-500"
-                  style={{ width: `${((activeWorkflowStep + 1) / surfpodsWorkflowSteps.length) * 100}%` }}
-                />
-              </div>
-              <p className="mt-3 text-xs uppercase tracking-[0.16em] text-slate-400">
-                {activeWorkflowStep + 1} of {surfpodsWorkflowSteps.length} stages
-              </p>
-            </article>
-          </div>
-        </section>
+                <div className="mt-8 h-2 w-full overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-cyan-300/90 to-cyan-500/90 transition-all duration-500"
+                    style={{ width: `${((activeWorkflowStep + 1) / surfpodsWorkflowSteps.length) * 100}%` }}
+                  />
+                </div>
+                <p className="mt-3 text-xs uppercase tracking-[0.16em] text-slate-400">
+                  {activeWorkflowStep + 1} of {surfpodsWorkflowSteps.length} stages
+                </p>
+              </article>
 
-        <section className="section-wrap reveal-on-scroll grid gap-10 py-20 md:grid-cols-2 md:items-center">
-          <div className="order-2 reveal-stagger md:order-1">
-            <h2 className="section-title">Complete Session Control</h2>
-            <p className="section-copy mt-5">
-              Users access equipment through the mobile app while operators monitor deployment status in real time.
-            </p>
-            <ul className="mt-6 grid grid-cols-1 gap-3 text-sm text-slate-300 sm:grid-cols-2">
-              {sessionControlFeatures.map((feature, index) => (
-                <li
-                  key={feature}
-                  className="reveal-stagger rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  style={{ "--reveal-delay": `${120 + index * 70}ms` }}
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="order-1 grid gap-4 sm:grid-cols-2 md:order-2">
-            <div className="panel reveal-stagger rounded-3xl p-3" style={{ "--reveal-delay": "120ms" }}>
-              <Image
-                src="/app_homepage.jpg"
-                alt="Mobile app screen one"
-                width={700}
-                height={1300}
-                className="aspect-[9/19] w-full rounded-2xl object-cover"
-              />
+              <figure className="panel reveal-stagger rounded-3xl p-3" style={{ "--reveal-delay": "290ms" }}>
+                {activeStepIsVideo ? (
+                  <video
+                    key={activeStep.image}
+                    src={activeStep.image}
+                    aria-label={activeStep.imageAlt}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                    className="aspect-[9/19] w-full rounded-2xl object-cover transition-all duration-500"
+                  >
+                    Your browser does not support embedded video playback.
+                  </video>
+                ) : (
+                  <Image
+                    src={activeStep.image}
+                    alt={activeStep.imageAlt}
+                    width={700}
+                    height={1300}
+                    className="aspect-[9/19] w-full rounded-2xl object-cover transition-all duration-500"
+                  />
+                )}
+                <figcaption className="mt-3 px-1 text-xs uppercase tracking-[0.16em] text-slate-400">
+                  Live App Screen Preview
+                </figcaption>
+              </figure>
             </div>
-            <div className="panel reveal-stagger rounded-3xl p-3" style={{ "--reveal-delay": "210ms" }}>
-              <Image
-                src="/app_session_screen.jpeg"
-                alt="Mobile app screen two"
-                width={700}
-                height={1300}
-                className="aspect-[9/19] w-full rounded-2xl object-cover"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section className="section-wrap reveal-on-scroll grid gap-10 py-20 md:grid-cols-[1fr_1.05fr] md:items-center">
-          <div className="reveal-stagger">
-            <h2 className="section-title">Engineered for Coastal Environments</h2>
-            <p className="section-copy mt-5" style={{ "--reveal-delay": "90ms" }}>
-              Built for outdoor deployment using corrosion-resistant materials, weather-protected components and serviceable modular construction.
-            </p>
-            <ul className="mt-6 grid grid-cols-1 gap-3 text-sm text-slate-300 sm:grid-cols-2">
-              {hardwareFeatures.map((feature, index) => (
-                <li
-                  key={feature}
-                  className="reveal-stagger rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  style={{ "--reveal-delay": `${150 + index * 60}ms` }}
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="reveal-stagger overflow-hidden rounded-3xl border border-white/15 bg-black/50 p-2" style={{ "--reveal-delay": "170ms" }}>
-            <Image
-              src="/storm_image.jpg"
-              alt="SurfPods hardware render"
-              width={1200}
-              height={800}
-              className="h-full w-full rounded-2xl object-cover"
-            />
           </div>
         </section>
 
         <section className="section-wrap reveal-on-scroll py-20">
           <h2 className="section-title reveal-stagger">Designed for Coastal Accommodation</h2>
           <p className="section-copy reveal-stagger mt-5" style={{ "--reveal-delay": "90ms" }}>
-            Designed for installation across multiple coastal accommodation environments with centralized control.
+            Suitable sites require mobile signal and mains power.
           </p>
           <div className="reveal-stagger mt-10 rounded-3xl border border-white/10 bg-black/45 p-7" style={{ "--reveal-delay": "160ms" }}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -449,7 +418,7 @@ export default function Home() {
               Building the Future of Surfboard Rental
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-slate-300">
-              Join the early access programme and follow deployment progress.
+              We are looking for pilot sites to join our early access programme.
             </p>
             <a
               href="#register"
